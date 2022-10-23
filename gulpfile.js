@@ -1,5 +1,5 @@
 const gulpBrowserify = require("gulp-browserify");
-const GulpBuilder = require("./GulpBuilder");
+const GulpBuilder = require("./lib/GulpBuilder");
 const { task, watch, series } = require("gulp");
 
 const html = {
