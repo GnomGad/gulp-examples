@@ -1,1 +1,1 @@
-module.exports.GulpBuilder = require("./lib/GulpBuilder");
+module.exports = require("./lib/GulpBuilder");
