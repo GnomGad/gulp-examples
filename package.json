@@ -1,6 +1,6 @@
 {
   "name": "gulp-pipe-builder2",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A convenient pipeline with the necessary plugins installed and a simple implementation",
   "main": "index.js",
   "scripts": {
