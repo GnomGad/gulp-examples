@@ -2,7 +2,38 @@
 
 Проект создан в качестве шаблона для работы с gulp
 
-## gulp плагины
+## HOW TO USE
+
+```js
+// imports
+const { GulpBuilder, watch, series } = require("gulp-pipe-builder");
+const html = {
+    in: "./app/html/**/*.html",
+    out: "./dest",
+};
+// initialization new object
+const gpb = new GulpBuilder();
+// creating a function to minimize html
+const minhtml = async () => {
+    return gpb
+        .addSrc(html.in)
+        .addPlumberNotify()
+        .addHtmlmin({
+            collapseWhitespace: true,
+            removeComments: true,
+        })
+        .addDest(html.out);
+};
+// creating watcher function
+const watcher = async () => {
+    watch(html.in, minhtml);
+};
+
+// export task
+module.exports.default = series(minhtml, watcher);
+```
+
+## gulp plugin
 
 ### Функциональные
 
