@@ -1,17 +1,91 @@
-// server
+const gulpBrowserify = require("gulp-browserify");
+const GulpBuilder = require("./GulpBuilder");
+const { task, watch, series } = require("gulp");
 
-// gulp
-const browserSync = require("browser-sync").create(),
-    gulp = require("gulp"),
-    clean = require("gulp-clean"),
-    concat = require("gulp-concat"),
-    rename = require("gulp-rename"),
-    plumber = require("gulp-plumber"),
-    notify = require("gulp-notify"),
-    htmlmin = require("gulp-htmlmin"),
-    jade = require("gulp-jade"),
-    csso = require("gulp-csso"),
-    autoprefixer = require("gulp-autoprefixer"),
-    imagemin = require("gulp-imagemin"),
-    uglify = require("gulp-uglify"),
-    browserify = require("gulp-browserify");
+const html = {
+        in: "./app/html/**/*.html",
+        out: "./dest",
+    },
+    js = {
+        in: "./app/js/**/*.js",
+        out: "./dest/js",
+        name: "main.min.js",
+    },
+    css = {
+        in: "./app/css/**/*.css",
+        out: "./dest",
+        name: "main.min.css",
+    },
+    img = {
+        in: "./app/img/**/*.*",
+        out: "./dest/img",
+    },
+    jade = {
+        in: "./app/jade/**/*.jade",
+        out: "./dest",
+    };
+
+const gb = new GulpBuilder();
+
+/**
+ * Минимизация html
+ * @returns
+ */
+let minhtml = async () => {
+    return gb
+        .addSrc(html.in)
+        .addPlumberNotify()
+        .addHtmlmin({
+            collapseWhitespace: true,
+            removeComments: true,
+        })
+        .addDest(html.out);
+};
+
+let jadeToHtml = async () => {
+    return new GulpBuilder(jade.in)
+        .addPlumberNotify()
+        .addJade()
+        .addDest(jade.out);
+};
+
+let mincss = async () => {
+    return new GulpBuilder(css.in)
+        .addPlumberNotify()
+        .addAutoprefixer()
+        .addCsso()
+        .addRename(css.name)
+        .addDest(css.out);
+};
+
+let minjs = async () => {
+    return gb
+        .addSrc(js.in, { read: false })
+        .addPlumberNotify()
+        .addbrowserify()
+        .addUglify()
+        .addRename(js.name)
+        .addDest(js.out);
+};
+
+let imagemin = async () => {
+    return new GulpBuilder(img.in)
+        .addPlumberNotify()
+        .addImagemin()
+        .addDest(img.out);
+};
+
+let watchTasks = async () => {
+    watch(html.in, minhtml);
+    watch(jade.in, jadeToHtml);
+    watch(css.in, mincss);
+    watch(js.in, minjs);
+    watch(img.in, imagemin);
+};
+
+exports.default = series(jadeToHtml, mincss, minjs, imagemin, watchTasks);
+exports.html = series(minhtml);
+exports.js = series(minjs);
+exports.jade = series(jadeToHtml);
+exports.css = series(mincss);
+exports.img = series(imagemin);
