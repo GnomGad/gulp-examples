@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
+  "repository": "https://github.com/GnomGad/gulp-pipe-builder.git",
   "author": "Evgeny <canimore@yandex.ua>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.27.10",
     "browserify": "^17.0.0",
