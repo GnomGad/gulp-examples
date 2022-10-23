@@ -1,6 +1,5 @@
 const gulpBrowserify = require("gulp-browserify");
-const GulpBuilder = require("./lib/GulpBuilder");
-const { task, watch, series } = require("gulp");
+const { GulpBuilder, task, watch, series } = require("./lib/GulpBuilder");
 
 const html = {
         in: "./app/html/**/*.html",
@@ -75,6 +74,14 @@ let imagemin = async () => {
         .addDest(img.out);
 };
 
+let jsdoc = async () => {
+    return new GulpBuilder("./lib/GulpBuilder.js").addPlumberNotify().addJsdoc({
+        opts: {
+            destination: "./doc",
+        },
+    });
+};
+
 let watchTasks = async () => {
     watch(html.in, minhtml);
     watch(jade.in, jadeToHtml);
@@ -89,3 +96,4 @@ exports.js = series(minjs);
 exports.jade = series(jadeToHtml);
 exports.css = series(mincss);
 exports.img = series(imagemin);
+exports.jsdoc = series(jsdoc);
