@@ -8,6 +8,7 @@
   },
   "keywords": [],
   "repository": "https://github.com/GnomGad/gulp-pipe-builder.git",
+  "homepage": "https://gnomgad.github.io/gulp-pipe-builder/GulpBuilder.html",
   "author": "Evgeny <canimore@yandex.com>",
   "license": "MIT",
   "dependencies": {
