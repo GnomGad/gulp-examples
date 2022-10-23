@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Evgeny <canimore@yandex.ua>",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.27.10",
