@@ -1,8 +1,8 @@
 {
-  "name": "object-003",
+  "name": "gulp-pipe-builder",
   "version": "1.0.0",
-  "description": "",
-  "main": "gulpfile.js",
+  "description": "A convenient pipeline with the necessary plugins installed and a simple implementation",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
